@@ -47,16 +47,13 @@
             cursor: none;
         }
 
-        /* ========== NOISE OVERLAY ========== */
         .noise-overlay {
             position: fixed; inset: 0; z-index: 9999;
-            pointer-events: none;
-            opacity: 0.025;
+            pointer-events: none; opacity: 0.025;
             background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
             background-repeat: repeat;
         }
 
-        /* ========== CUSTOM CURSOR ========== */
         .cursor-ring {
             width: 40px; height: 40px;
             border: 1.5px solid rgba(0, 240, 255, 0.5);
@@ -69,8 +66,7 @@
 
         .cursor-dot {
             width: 5px; height: 5px;
-            background: var(--cyan);
-            border-radius: 50%;
+            background: var(--cyan); border-radius: 50%;
             position: fixed; pointer-events: none; z-index: 99999;
             transform: translate(-50%, -50%);
             box-shadow: 0 0 10px var(--cyan), 0 0 20px rgba(0, 240, 255, 0.3);
@@ -82,10 +78,8 @@
             background: rgba(255, 107, 157, 0.05);
         }
 
-        /* ========== PRELOADER ========== */
         .preloader {
-            position: fixed; inset: 0;
-            background: var(--bg);
+            position: fixed; inset: 0; background: var(--bg);
             z-index: 100000;
             display: flex; align-items: center; justify-content: center; flex-direction: column;
             transition: opacity 1s ease, visibility 1s ease;
@@ -97,7 +91,6 @@
             font-size: 4rem; font-weight: 900;
             font-family: 'Space Grotesk', sans-serif;
             letter-spacing: -3px;
-            position: relative;
         }
 
         .preloader-logo span {
@@ -140,50 +133,21 @@
 
         @keyframes loadBar { to { width: 100%; } }
 
-        /* ========== AURORA BG ========== */
         .aurora-bg {
             position: fixed; inset: 0; z-index: 0;
             overflow: hidden; pointer-events: none;
         }
 
         .aurora-blob {
-            position: absolute;
-            border-radius: 50%;
-            filter: blur(120px);
-            opacity: 0.12;
+            position: absolute; border-radius: 50%;
+            filter: blur(120px); opacity: 0.12;
             animation: auroraMove 12s ease-in-out infinite alternate;
         }
 
-        .aurora-blob.b1 {
-            width: 800px; height: 500px;
-            background: var(--cyan);
-            top: -15%; left: -10%;
-            animation-duration: 15s;
-        }
-
-        .aurora-blob.b2 {
-            width: 700px; height: 600px;
-            background: var(--purple);
-            top: 20%; right: -15%;
-            animation-duration: 18s;
-            animation-delay: 3s;
-        }
-
-        .aurora-blob.b3 {
-            width: 600px; height: 500px;
-            background: var(--pink);
-            bottom: -10%; left: 30%;
-            animation-duration: 20s;
-            animation-delay: 6s;
-        }
-
-        .aurora-blob.b4 {
-            width: 500px; height: 400px;
-            background: var(--blue);
-            bottom: 30%; right: 20%;
-            animation-duration: 14s;
-            animation-delay: 2s;
-        }
+        .aurora-blob.b1 { width: 800px; height: 500px; background: var(--cyan); top: -15%; left: -10%; animation-duration: 15s; }
+        .aurora-blob.b2 { width: 700px; height: 600px; background: var(--purple); top: 20%; right: -15%; animation-duration: 18s; animation-delay: 3s; }
+        .aurora-blob.b3 { width: 600px; height: 500px; background: var(--pink); bottom: -10%; left: 30%; animation-duration: 20s; animation-delay: 6s; }
+        .aurora-blob.b4 { width: 500px; height: 400px; background: var(--blue); bottom: 30%; right: 20%; animation-duration: 14s; animation-delay: 2s; }
 
         @keyframes auroraMove {
             0% { transform: translate(0, 0) rotate(0deg) scale(1); }
@@ -192,13 +156,9 @@
             100% { transform: translate(30px, -20px) rotate(2deg) scale(1.05); }
         }
 
-        /* ========== PARTICLES ========== */
         #particles { position: fixed; inset: 0; z-index: 0; pointer-events: none; }
 
-        /* ========== FLOATING SHAPES ========== */
-        .floating-shapes {
-            position: fixed; inset: 0; z-index: 0; pointer-events: none; overflow: hidden;
-        }
+        .floating-shapes { position: fixed; inset: 0; z-index: 0; pointer-events: none; overflow: hidden; }
 
         .shape {
             position: absolute;
@@ -221,7 +181,6 @@
             75% { transform: translate(25px, 10px) rotate(8deg); }
         }
 
-        /* ========== NAV ========== */
         .nav {
             position: fixed; top: 0; left: 0; width: 100%;
             padding: 24px 50px;
@@ -239,8 +198,7 @@
         .nav-brand {
             font-family: 'Space Grotesk', sans-serif;
             font-size: 1.6rem; font-weight: 700;
-            text-decoration: none;
-            color: var(--cyan);
+            text-decoration: none; color: var(--cyan);
             letter-spacing: -1px;
             text-shadow: 0 0 20px rgba(0, 240, 255, 0.3);
         }
@@ -291,7 +249,6 @@
         }
 
         .mobile-menu.active { opacity: 1; visibility: visible; }
-
         .mobile-menu ul { list-style: none; text-align: center; }
         .mobile-menu li { margin: 30px 0; }
 
@@ -299,18 +256,15 @@
             text-decoration: none; color: var(--text);
             font-size: 2.2rem; font-weight: 700;
             font-family: 'Space Grotesk', sans-serif;
-            letter-spacing: -1px;
-            transition: color 0.3s;
+            letter-spacing: -1px; transition: color 0.3s;
         }
 
         .mobile-menu a:hover { color: var(--cyan); }
 
-        /* ========== HERO ========== */
         .hero {
             min-height: 100vh;
             display: flex; align-items: center;
-            position: relative; padding: 0 50px;
-            overflow: hidden;
+            position: relative; padding: 0 50px; overflow: hidden;
         }
 
         .hero-content { position: relative; z-index: 2; max-width: 800px; }
@@ -339,8 +293,7 @@
         }
 
         .hero-intro {
-            font-size: 1rem;
-            color: var(--text-dim);
+            font-size: 1rem; color: var(--text-dim);
             font-family: 'JetBrains Mono', monospace;
             margin-bottom: 8px;
             animation: fadeUp 0.8s ease 0.5s both;
@@ -357,8 +310,7 @@
         .hero-name {
             font-size: 5.5rem; font-weight: 900;
             font-family: 'Space Grotesk', sans-serif;
-            line-height: 1;
-            letter-spacing: -4px;
+            line-height: 1; letter-spacing: -4px;
             margin-bottom: 15px;
             animation: fadeUp 0.8s ease 0.7s both;
         }
@@ -380,9 +332,7 @@
             background-clip: text;
             background-size: 300% 300%;
             animation: meshGradient 4s ease infinite;
-            filter: blur(30px);
-            opacity: 0.4;
-            z-index: -1;
+            filter: blur(30px); opacity: 0.4; z-index: -1;
         }
 
         @keyframes meshGradient {
@@ -392,21 +342,18 @@
 
         .hero-role {
             font-size: 1.8rem; font-weight: 300;
-            color: var(--text-dim);
-            margin-bottom: 25px;
+            color: var(--text-dim); margin-bottom: 25px;
             animation: fadeUp 0.8s ease 0.9s both;
         }
 
         .hero-role .type-text {
-            color: var(--cyan);
-            font-weight: 600;
+            color: var(--cyan); font-weight: 600;
             text-shadow: 0 0 20px rgba(0, 240, 255, 0.3);
         }
 
         .type-cursor {
             display: inline-block; width: 2px; height: 1.6rem;
-            background: var(--cyan);
-            margin-left: 3px;
+            background: var(--cyan); margin-left: 3px;
             vertical-align: text-bottom;
             animation: cursorBlink 0.8s step-end infinite;
             box-shadow: 0 0 8px var(--cyan);
@@ -416,8 +363,7 @@
 
         .hero-desc {
             font-size: 1rem; color: var(--text-dim);
-            line-height: 1.9; max-width: 550px;
-            margin-bottom: 45px;
+            line-height: 1.9; max-width: 550px; margin-bottom: 45px;
             animation: fadeUp 0.8s ease 1.1s both;
         }
 
@@ -427,12 +373,9 @@
         }
 
         .btn-neon {
-            padding: 16px 38px;
-            background: transparent;
-            border: 1.5px solid var(--cyan);
-            color: var(--cyan);
-            border-radius: 60px;
-            font-size: 0.9rem; font-weight: 600;
+            padding: 16px 38px; background: transparent;
+            border: 1.5px solid var(--cyan); color: var(--cyan);
+            border-radius: 60px; font-size: 0.9rem; font-weight: 600;
             font-family: 'Inter', sans-serif;
             cursor: pointer; text-decoration: none;
             position: relative; overflow: hidden;
@@ -443,9 +386,8 @@
 
         .btn-neon::before {
             content: ''; position: absolute; inset: 0;
-            background: var(--cyan);
-            opacity: 0; transition: opacity 0.4s;
-            z-index: -1;
+            background: var(--cyan); opacity: 0;
+            transition: opacity 0.4s; z-index: -1;
         }
 
         .btn-neon:hover {
@@ -460,8 +402,7 @@
             padding: 16px 38px;
             background: rgba(255,255,255,0.04);
             border: 1px solid rgba(255,255,255,0.08);
-            color: var(--text);
-            border-radius: 60px;
+            color: var(--text); border-radius: 60px;
             font-size: 0.9rem; font-weight: 600;
             font-family: 'Inter', sans-serif;
             cursor: pointer; text-decoration: none;
@@ -479,24 +420,20 @@
         .hero-socials {
             position: absolute; right: 50px; top: 50%;
             transform: translateY(-50%);
-            display: flex; flex-direction: column; gap: 22px;
-            z-index: 2;
+            display: flex; flex-direction: column; gap: 22px; z-index: 2;
         }
 
         .hero-socials a {
-            width: 42px; height: 42px;
-            border-radius: 12px;
+            width: 42px; height: 42px; border-radius: 12px;
             border: 1px solid rgba(255,255,255,0.06);
             display: flex; align-items: center; justify-content: center;
-            color: var(--text-dim);
-            text-decoration: none; font-size: 1rem;
+            color: var(--text-dim); text-decoration: none; font-size: 1rem;
             transition: all 0.3s;
             background: rgba(255,255,255,0.02);
         }
 
         .hero-socials a:hover {
-            border-color: var(--cyan);
-            color: var(--cyan);
+            border-color: var(--cyan); color: var(--cyan);
             box-shadow: 0 0 20px rgba(0, 240, 255, 0.15);
             transform: translateY(-3px);
         }
@@ -504,8 +441,8 @@
         .scroll-hint {
             position: absolute; bottom: 35px; left: 50%;
             transform: translateX(-50%);
-            display: flex; flex-direction: column; align-items: center; gap: 8px;
-            z-index: 2;
+            display: flex; flex-direction: column; align-items: center;
+            gap: 8px; z-index: 2;
             animation: fadeUp 0.8s ease 1.8s both;
         }
 
@@ -531,7 +468,6 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
-        /* ========== SECTIONS ========== */
         section { position: relative; z-index: 1; padding: 130px 50px; }
 
         .section-tag {
@@ -545,8 +481,7 @@
         .section-heading {
             font-size: 3.2rem; font-weight: 800;
             font-family: 'Space Grotesk', sans-serif;
-            letter-spacing: -2px;
-            margin-bottom: 15px;
+            letter-spacing: -2px; margin-bottom: 15px;
         }
 
         .section-heading em {
@@ -568,7 +503,6 @@
         .section-header-center { text-align: center; margin-bottom: 80px; }
         .section-header-center .section-divider { margin: 15px auto 0; }
 
-        /* ========== ABOUT ========== */
         .about { background: transparent; }
 
         .about-layout {
@@ -581,8 +515,7 @@
 
         .photo-frame {
             width: 360px; height: 430px;
-            border-radius: 24px;
-            overflow: hidden;
+            border-radius: 24px; overflow: hidden;
             position: relative;
             background: var(--bg-card);
             border: 1px solid var(--glass-border);
@@ -599,9 +532,7 @@
 
         @keyframes borderSpin { to { transform: rotate(360deg); } }
 
-        .photo-frame img {
-            width: 100%; height: 100%; object-fit: cover;
-        }
+        .photo-frame img { width: 100%; height: 100%; object-fit: cover; }
 
         .photo-placeholder {
             width: 100%; height: 100%;
@@ -623,8 +554,7 @@
 
         .orbit-dot {
             position: absolute;
-            width: 8px; height: 8px;
-            border-radius: 50%;
+            width: 8px; height: 8px; border-radius: 50%;
             background: var(--cyan);
             box-shadow: 0 0 12px var(--cyan);
             top: -4px; left: 50%;
@@ -652,8 +582,7 @@
             padding: 12px 16px;
             background: var(--glass);
             border: 1px solid var(--glass-border);
-            border-radius: 12px;
-            transition: all 0.3s;
+            border-radius: 12px; transition: all 0.3s;
         }
 
         .info-item:hover {
@@ -662,15 +591,12 @@
         }
 
         .info-item i { color: var(--cyan); width: 18px; font-size: 0.85rem; }
-
         .info-item .info-label { font-size: 0.72rem; color: var(--text-dim); text-transform: uppercase; letter-spacing: 1px; }
         .info-item .info-value { font-size: 0.88rem; font-weight: 600; }
 
         .btn-neon.resume-btn { margin-top: 15px; }
 
-        /* ========== SKILLS ========== */
         .skills-section { background: transparent; }
-
         .skills-wrapper { max-width: 1000px; margin: 0 auto; }
 
         .skill-group { margin-bottom: 55px; }
@@ -679,8 +605,7 @@
         .skill-group-label {
             display: flex; align-items: center; gap: 12px;
             font-size: 1rem; font-weight: 600;
-            color: var(--text-dim);
-            margin-bottom: 22px;
+            color: var(--text-dim); margin-bottom: 22px;
             font-family: 'JetBrains Mono', monospace;
             justify-content: center;
         }
@@ -692,17 +617,14 @@
         }
 
         .skill-pill {
-            padding: 14px 28px;
-            border-radius: 14px;
+            padding: 14px 28px; border-radius: 14px;
             font-size: 0.9rem; font-weight: 500;
             background: var(--glass);
             border: 1px solid var(--glass-border);
             color: var(--text);
             display: flex; align-items: center; gap: 10px;
             transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            cursor: default;
-            position: relative;
-            overflow: hidden;
+            cursor: default; position: relative; overflow: hidden;
         }
 
         .skill-pill::before {
@@ -713,7 +635,6 @@
         .skill-pill.cyan::before { background: linear-gradient(135deg, rgba(0,240,255,0.12), rgba(10,132,255,0.08)); }
         .skill-pill.purple::before { background: linear-gradient(135deg, rgba(191,90,242,0.12), rgba(255,107,157,0.08)); }
         .skill-pill.pink::before { background: linear-gradient(135deg, rgba(255,107,157,0.12), rgba(255,159,10,0.08)); }
-        .skill-pill.green::before { background: linear-gradient(135deg, rgba(48,209,88,0.12), rgba(0,240,255,0.08)); }
 
         .skill-pill:hover::before { opacity: 1; }
 
@@ -725,14 +646,11 @@
         .skill-pill:hover.cyan { border-color: rgba(0,240,255,0.3); box-shadow: 0 15px 40px rgba(0,240,255,0.1); }
         .skill-pill:hover.purple { border-color: rgba(191,90,242,0.3); box-shadow: 0 15px 40px rgba(191,90,242,0.1); }
         .skill-pill:hover.pink { border-color: rgba(255,107,157,0.3); box-shadow: 0 15px 40px rgba(255,107,157,0.1); }
-        .skill-pill:hover.green { border-color: rgba(48,209,88,0.3); box-shadow: 0 15px 40px rgba(48,209,88,0.1); }
 
         .skill-pill i, .skill-pill span { position: relative; z-index: 1; }
-
         .skill-pill i { font-size: 1.1rem; transition: transform 0.3s; }
         .skill-pill:hover i { transform: rotate(15deg) scale(1.2); }
 
-        /* MARQUEE */
         .marquee-strip {
             overflow: hidden; padding: 50px 0; margin-top: 50px;
             border-top: 1px solid rgba(255,255,255,0.03);
@@ -754,36 +672,27 @@
             font-size: 0.95rem; color: rgba(255,255,255,0.15);
             white-space: nowrap;
             font-family: 'JetBrains Mono', monospace;
-            font-weight: 500;
-            transition: color 0.3s;
+            font-weight: 500; transition: color 0.3s;
         }
 
         .marquee-item:hover { color: var(--cyan); }
         .marquee-item i { font-size: 1.2rem; }
 
-        /* ========== PROJECT ========== */
         .project-section { background: transparent; }
-
-        .project-showcase {
-            max-width: 900px; margin: 0 auto;
-        }
+        .project-showcase { max-width: 900px; margin: 0 auto; }
 
         .project-card-main {
-            border-radius: 24px;
-            overflow: hidden;
+            border-radius: 24px; overflow: hidden;
             background: var(--bg-card);
             border: 1px solid var(--glass-border);
             backdrop-filter: blur(20px);
-            transition: all 0.5s;
-            position: relative;
+            transition: all 0.5s; position: relative;
         }
 
         .project-card-main::before {
             content: ''; position: absolute; top: 0; left: 0; right: 0;
-            height: 2px;
-            background: var(--gradient-hero);
-            opacity: 0;
-            transition: opacity 0.4s;
+            height: 2px; background: var(--gradient-hero);
+            opacity: 0; transition: opacity 0.4s;
         }
 
         .project-card-main:hover::before { opacity: 1; }
@@ -796,8 +705,7 @@
 
         .project-preview {
             width: 100%; height: 400px;
-            position: relative; overflow: hidden;
-            cursor: pointer;
+            position: relative; overflow: hidden; cursor: pointer;
         }
 
         .project-preview-bg {
@@ -805,8 +713,7 @@
             background: linear-gradient(135deg, #0a1628, #1a0a2e, #0a1628);
             display: flex; align-items: center; justify-content: center;
             flex-direction: column; gap: 20px;
-            transition: transform 0.6s;
-            position: relative;
+            transition: transform 0.6s; position: relative;
         }
 
         .project-card-main:hover .project-preview-bg { transform: scale(1.03); }
@@ -814,7 +721,8 @@
         .project-preview-bg .preview-icon {
             font-size: 4rem;
             background: var(--gradient-hero);
-            -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            background-clip: text;
             animation: meshGradient 3s ease infinite;
         }
 
@@ -835,8 +743,7 @@
         .project-card-main:hover .project-hover-overlay { opacity: 1; }
 
         .project-hover-content {
-            transform: translateY(20px); transition: transform 0.4s;
-            width: 100%;
+            transform: translateY(20px); transition: transform 0.4s; width: 100%;
         }
 
         .project-card-main:hover .project-hover-content { transform: translateY(0); }
@@ -847,12 +754,9 @@
         .project-btns { display: flex; gap: 12px; }
 
         .project-btns a {
-            padding: 12px 24px;
-            border-radius: 50px;
-            text-decoration: none;
-            font-size: 0.85rem; font-weight: 600;
-            display: flex; align-items: center; gap: 8px;
-            transition: all 0.3s;
+            padding: 12px 24px; border-radius: 50px;
+            text-decoration: none; font-size: 0.85rem; font-weight: 600;
+            display: flex; align-items: center; gap: 8px; transition: all 0.3s;
         }
 
         .project-btns .btn-live {
@@ -876,21 +780,17 @@
             transform: translateY(-2px);
         }
 
-        .project-details {
-            padding: 35px 40px;
-        }
+        .project-details { padding: 35px 40px; }
 
         .project-tech-row {
             display: flex; gap: 10px; margin-bottom: 18px; flex-wrap: wrap;
         }
 
         .project-tech-row span {
-            font-size: 0.7rem; padding: 5px 14px;
-            border-radius: 50px;
+            font-size: 0.7rem; padding: 5px 14px; border-radius: 50px;
             background: rgba(0, 240, 255, 0.06);
             border: 1px solid rgba(0, 240, 255, 0.12);
-            color: var(--cyan);
-            font-weight: 600;
+            color: var(--cyan); font-weight: 600;
             font-family: 'JetBrains Mono', monospace;
             letter-spacing: 0.5px;
         }
@@ -916,49 +816,6 @@
             text-shadow: 0 0 15px rgba(0,240,255,0.3);
         }
 
-        /* ========== STATS ========== */
-        .stats-bar {
-            padding: 70px 50px;
-            background: rgba(255,255,255,0.01);
-            border-top: 1px solid rgba(255,255,255,0.03);
-            border-bottom: 1px solid rgba(255,255,255,0.03);
-            position: relative; z-index: 1;
-        }
-
-        .stats-row {
-            display: grid; grid-template-columns: repeat(3, 1fr);
-            gap: 30px; max-width: 800px; margin: 0 auto;
-        }
-
-        .stat-box {
-            text-align: center; padding: 30px;
-            border-radius: 20px;
-            background: var(--glass);
-            border: 1px solid var(--glass-border);
-            transition: all 0.3s;
-        }
-
-        .stat-box:hover {
-            transform: translateY(-5px);
-            border-color: rgba(0, 240, 255, 0.12);
-        }
-
-        .stat-val {
-            font-size: 2.8rem; font-weight: 900;
-            font-family: 'Space Grotesk', sans-serif;
-            letter-spacing: -2px;
-            background: var(--gradient-hero);
-            -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
-        }
-
-        .stat-desc {
-            font-size: 0.75rem; color: var(--text-dim);
-            text-transform: uppercase; letter-spacing: 2px;
-            margin-top: 6px;
-            font-family: 'JetBrains Mono', monospace;
-        }
-
-        /* ========== CONTACT ========== */
         .contact-section { background: transparent; }
 
         .contact-grid {
@@ -1025,8 +882,7 @@
             background: var(--bg-card);
             backdrop-filter: blur(20px);
             border: 1px solid var(--glass-border);
-            border-radius: 24px;
-            padding: 45px;
+            border-radius: 24px; padding: 45px;
         }
 
         .form-group { margin-bottom: 22px; }
@@ -1054,14 +910,12 @@
         }
 
         .form-group textarea { resize: vertical; min-height: 110px; }
-
         .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
 
         .contact-form-card .btn-neon {
             width: 100%; justify-content: center; padding: 17px;
         }
 
-        /* ========== FOOTER ========== */
         .footer {
             padding: 50px;
             border-top: 1px solid rgba(255,255,255,0.03);
@@ -1070,8 +924,8 @@
 
         .footer-inner {
             max-width: 1200px; margin: 0 auto;
-            display: flex; justify-content: space-between; align-items: center;
-            flex-wrap: wrap; gap: 20px;
+            display: flex; justify-content: space-between;
+            align-items: center; flex-wrap: wrap; gap: 20px;
         }
 
         .footer-brand {
@@ -1112,7 +966,6 @@
             transform: translateY(-4px);
         }
 
-        /* ========== REVEAL ========== */
         .reveal { opacity: 0; transform: translateY(40px); transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1); }
         .reveal.visible { opacity: 1; transform: translateY(0); }
         .reveal-l { opacity: 0; transform: translateX(-40px); transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1); }
@@ -1120,7 +973,6 @@
         .reveal-r { opacity: 0; transform: translateX(40px); transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1); }
         .reveal-r.visible { opacity: 1; transform: translateX(0); }
 
-        /* ========== RESPONSIVE ========== */
         @media (max-width: 1024px) {
             .hero-name { font-size: 4rem; letter-spacing: -3px; }
             .hero-role { font-size: 1.4rem; }
@@ -1146,7 +998,6 @@
             .info-grid { grid-template-columns: 1fr; }
             .contact-grid { grid-template-columns: 1fr; }
             .form-row { grid-template-columns: 1fr; }
-            .stats-row { grid-template-columns: 1fr; }
             .section-heading { font-size: 2.2rem; }
             .footer-inner { flex-direction: column; text-align: center; }
             .hero-actions { justify-content: center; }
@@ -1160,7 +1011,6 @@
             .hero-name { font-size: 2.2rem; }
             .hero-role { font-size: 1rem; }
             .section-heading { font-size: 1.8rem; }
-            .stat-val { font-size: 2.2rem; }
             .contact-form-card { padding: 28px; }
             .footer { padding: 35px 18px; }
             .project-details { padding: 25px; }
@@ -1172,11 +1022,9 @@
 
     <div class="noise-overlay"></div>
 
-    <!-- CURSOR -->
     <div class="cursor-ring" id="cursorRing"></div>
     <div class="cursor-dot" id="cursorDot"></div>
 
-    <!-- AURORA BG -->
     <div class="aurora-bg">
         <div class="aurora-blob b1"></div>
         <div class="aurora-blob b2"></div>
@@ -1184,7 +1032,6 @@
         <div class="aurora-blob b4"></div>
     </div>
 
-    <!-- FLOATING SHAPES -->
     <div class="floating-shapes">
         <div class="shape circle s1"></div>
         <div class="shape s2"></div>
@@ -1193,10 +1040,8 @@
         <div class="shape circle s5"></div>
     </div>
 
-    <!-- PARTICLES -->
     <canvas id="particles"></canvas>
 
-    <!-- PRELOADER -->
     <div class="preloader" id="preloader">
         <div class="preloader-logo">
             <span class="char-cyan">B</span><span class="char-purple">H</span><span class="char-pink">A</span><span class="char-cyan">V</span><span class="char-purple">I</span><span class="char-pink">S</span><span class="char-cyan">H</span>
@@ -1204,7 +1049,6 @@
         <div class="preloader-line"></div>
     </div>
 
-    <!-- NAV -->
     <nav class="nav" id="nav">
         <a href="#" class="nav-brand">bhavish.</a>
         <ul class="nav-menu">
@@ -1219,7 +1063,6 @@
         </div>
     </nav>
 
-    <!-- MOBILE MENU -->
     <div class="mobile-menu" id="mobileMenu">
         <ul>
             <li><a href="#home" onclick="closeMenu()">Home</a></li>
@@ -1257,10 +1100,9 @@
         </div>
 
         <div class="hero-socials">
-            <a href="#" title="GitHub"><i class="fab fa-github"></i></a>
-            <a href="#" title="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
-            <a href="#" title="Twitter"><i class="fab fa-x-twitter"></i></a>
-            <a href="#" title="Instagram"><i class="fab fa-instagram"></i></a>
+            <a href="https://github.com/bhavish-web" target="_blank" title="GitHub"><i class="fab fa-github"></i></a>
+            <a href="https://www.linkedin.com/in/bhavish-alakanti-823238321" target="_blank" title="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+            <a href="https://instagram.com/bhavishhhhhhhhhh" target="_blank" title="Instagram"><i class="fab fa-instagram"></i></a>
         </div>
 
         <div class="scroll-hint">
@@ -1287,13 +1129,13 @@
                     ║  📸 INSERT YOUR PHOTO HERE               ║
                     ║                                          ║
                     ║  Replace the placeholder below with:     ║
-                    ║  <img src="bhavish-photo.jpg"               ║
+                    ║  <img src="your-photo.jpg"               ║
                     ║       alt="Bhavish Alakanti">             ║
                     ║                                          ║
                     ║  Then DELETE the placeholder div.         ║
                     ╚══════════════════════════════════════════╝
                     -->
-                    <img src="bhavish-photo.jpg" alt="Bhavish Alakanti">
+                    <div class="photo-placeholder">B</div>
                 </div>
             </div>
 
@@ -1364,8 +1206,6 @@
                     <div class="skill-pill cyan"><i class="fab fa-css3-alt"></i> <span>CSS3</span></div>
                     <div class="skill-pill cyan"><i class="fab fa-js-square"></i> <span>JavaScript</span></div>
                     <div class="skill-pill cyan"><i class="fab fa-react"></i> <span>React.js</span></div>
-                    <div class="skill-pill cyan"><i class="fab fa-bootstrap"></i> <span>Bootstrap</span></div>
-                    <div class="skill-pill cyan"><i class="fas fa-wind"></i> <span>Tailwind CSS</span></div>
                 </div>
             </div>
 
@@ -1374,7 +1214,6 @@
                 <div class="skill-pills">
                     <div class="skill-pill purple"><i class="fab fa-node-js"></i> <span>Node.js</span></div>
                     <div class="skill-pill purple"><i class="fab fa-python"></i> <span>Python</span></div>
-                    <div class="skill-pill purple"><i class="fas fa-database"></i> <span>MongoDB</span></div>
                     <div class="skill-pill purple"><i class="fas fa-database"></i> <span>MySQL</span></div>
                 </div>
             </div>
@@ -1383,10 +1222,8 @@
                 <div class="skill-group-label"><i class="fas fa-wrench"></i> Tools & Design</div>
                 <div class="skill-pills">
                     <div class="skill-pill pink"><i class="fab fa-git-alt"></i> <span>Git & GitHub</span></div>
-                    <div class="skill-pill pink"><i class="fab fa-figma"></i> <span>Figma</span></div>
                     <div class="skill-pill pink"><i class="fas fa-terminal"></i> <span>VS Code</span></div>
-                    <div class="skill-pill pink"><i class="fab fa-linux"></i> <span>Linux</span></div>
-                    <div class="skill-pill pink"><i class="fas fa-pen-nib"></i> <span>UI/UX</span></div>
+                    <div class="skill-pill pink"><i class="fas fa-pen-nib"></i> <span>UI/UX Design</span></div>
                 </div>
             </div>
 
@@ -1399,9 +1236,10 @@
                     <div class="marquee-item"><i class="fab fa-node-js"></i> Node.js</div>
                     <div class="marquee-item"><i class="fab fa-python"></i> Python</div>
                     <div class="marquee-item"><i class="fab fa-git-alt"></i> Git</div>
-                    <div class="marquee-item"><i class="fab fa-figma"></i> Figma</div>
-                    <div class="marquee-item"><i class="fas fa-database"></i> MongoDB</div>
-                    <div class="marquee-item"><i class="fab fa-bootstrap"></i> Bootstrap</div>
+                    <div class="marquee-item"><i class="fas fa-database"></i> MySQL</div>
+                    <div class="marquee-item"><i class="fas fa-pen-nib"></i> UI/UX</div>
+                    <div class="marquee-item"><i class="fas fa-terminal"></i> VS Code</div>
+                    <!-- duplicate for seamless loop -->
                     <div class="marquee-item"><i class="fab fa-html5"></i> HTML5</div>
                     <div class="marquee-item"><i class="fab fa-css3-alt"></i> CSS3</div>
                     <div class="marquee-item"><i class="fab fa-js"></i> JavaScript</div>
@@ -1409,9 +1247,9 @@
                     <div class="marquee-item"><i class="fab fa-node-js"></i> Node.js</div>
                     <div class="marquee-item"><i class="fab fa-python"></i> Python</div>
                     <div class="marquee-item"><i class="fab fa-git-alt"></i> Git</div>
-                    <div class="marquee-item"><i class="fab fa-figma"></i> Figma</div>
-                    <div class="marquee-item"><i class="fas fa-database"></i> MongoDB</div>
-                    <div class="marquee-item"><i class="fab fa-bootstrap"></i> Bootstrap</div>
+                    <div class="marquee-item"><i class="fas fa-database"></i> MySQL</div>
+                    <div class="marquee-item"><i class="fas fa-pen-nib"></i> UI/UX</div>
+                    <div class="marquee-item"><i class="fas fa-terminal"></i> VS Code</div>
                 </div>
             </div>
         </div>
@@ -1440,7 +1278,7 @@
                                 <a href="https://mun2k26-nnrg.vercel.app" target="_blank" class="btn-live">
                                     <i class="fas fa-external-link-alt"></i> Live Site
                                 </a>
-                                <a href="#" target="_blank" class="btn-code">
+                                <a href="https://github.com/bhavish-web" target="_blank" class="btn-code">
                                     <i class="fab fa-github"></i> Source
                                 </a>
                             </div>
@@ -1464,24 +1302,6 @@
             </div>
         </div>
     </section>
-
-    <!-- STATS -->
-    <div class="stats-bar">
-        <div class="stats-row">
-            <div class="stat-box reveal">
-                <div class="stat-val" data-target="1">0</div>
-                <div class="stat-desc">Project Shipped</div>
-            </div>
-            <div class="stat-box reveal">
-                <div class="stat-val" data-target="500">0</div>
-                <div class="stat-desc">Lines of Code</div>
-            </div>
-            <div class="stat-box reveal">
-                <div class="stat-val" data-target="10">0</div>
-                <div class="stat-desc">Technologies</div>
-            </div>
-        </div>
-    </div>
 
     <!-- CONTACT -->
     <section class="contact-section" id="contact">
@@ -1521,10 +1341,9 @@
                 </div>
 
                 <div class="social-row">
-                    <a href="#"><i class="fab fa-github"></i></a>
-                    <a href="#"><i class="fab fa-linkedin-in"></i></a>
-                    <a href="#"><i class="fab fa-x-twitter"></i></a>
-                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="https://github.com/bhavish-web" target="_blank"><i class="fab fa-github"></i></a>
+                    <a href="https://www.linkedin.com/in/bhavish-alakanti-823238321" target="_blank"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="https://instagram.com/bhavishhhhhhhhhh" target="_blank"><i class="fab fa-instagram"></i></a>
                 </div>
             </div>
 
@@ -1570,16 +1389,15 @@
         </div>
     </footer>
 
-    <!-- BACK TO TOP -->
     <button class="back-top" id="backTop"><i class="fas fa-chevron-up"></i></button>
 
     <script>
-        // ========== PRELOADER ==========
+        // PRELOADER
         window.addEventListener('load', () => {
             setTimeout(() => document.getElementById('preloader').classList.add('hidden'), 2500);
         });
 
-        // ========== CURSOR ==========
+        // CURSOR
         const ring = document.getElementById('cursorRing');
         const dot = document.getElementById('cursorDot');
         let mx = 0, my = 0, rx = 0, ry = 0;
@@ -1597,12 +1415,12 @@
         }
         animateCursor();
 
-        document.querySelectorAll('a, button, .skill-pill, .project-card-main, .info-item, .contact-icon, .stat-box').forEach(el => {
+        document.querySelectorAll('a, button, .skill-pill, .project-card-main, .info-item, .contact-icon').forEach(el => {
             el.addEventListener('mouseenter', () => ring.classList.add('hover'));
             el.addEventListener('mouseleave', () => ring.classList.remove('hover'));
         });
 
-        // ========== PARTICLES ==========
+        // PARTICLES
         const cvs = document.getElementById('particles');
         const c = cvs.getContext('2d');
         let pts = [];
@@ -1655,7 +1473,7 @@
         }
         loop();
 
-        // ========== TYPING ==========
+        // TYPING
         const words = ['cool websites', 'smooth UI/UX', 'creative designs', 'modern apps', 'digital magic'];
         let wi = 0, ci = 0, del = false;
         const typeEl = document.getElementById('typeText');
@@ -1670,7 +1488,7 @@
         }
         setTimeout(type, 2800);
 
-        // ========== NAV ==========
+        // NAV
         const nav = document.getElementById('nav');
         const backTop = document.getElementById('backTop');
 
@@ -1681,14 +1499,14 @@
 
         backTop.addEventListener('click', () => scrollTo({ top: 0, behavior: 'smooth' }));
 
-        // ========== MOBILE MENU ==========
+        // MOBILE MENU
         const ham = document.getElementById('hamburger');
         const mob = document.getElementById('mobileMenu');
 
         ham.addEventListener('click', () => { ham.classList.toggle('active'); mob.classList.toggle('active'); });
         function closeMenu() { ham.classList.remove('active'); mob.classList.remove('active'); }
 
-        // ========== REVEAL ==========
+        // REVEAL
         function reveal() {
             document.querySelectorAll('.reveal, .reveal-l, .reveal-r').forEach(el => {
                 if (el.getBoundingClientRect().top < innerHeight - 100) el.classList.add('visible');
@@ -1697,27 +1515,7 @@
         addEventListener('scroll', reveal);
         addEventListener('load', () => setTimeout(reveal, 2600));
 
-        // ========== COUNTERS ==========
-        let counted = false;
-        function counters() {
-            if (counted) return;
-            const els = document.querySelectorAll('.stat-val[data-target]');
-            if (!els[0] || els[0].getBoundingClientRect().top > innerHeight - 80) return;
-            counted = true;
-            els.forEach(el => {
-                const t = +el.dataset.target;
-                const s = Math.max(t / 125, 0.08);
-                let v = 0;
-                const timer = setInterval(() => {
-                    v += s;
-                    if (v >= t) { el.textContent = t + '+'; clearInterval(timer); }
-                    else el.textContent = Math.floor(v) + '+';
-                }, 16);
-            });
-        }
-        addEventListener('scroll', counters);
-
-        // ========== FORM ==========
+        // FORM
         document.getElementById('contactForm').addEventListener('submit', e => {
             e.preventDefault();
             const btn = e.target.querySelector('.btn-neon span');
@@ -1725,7 +1523,7 @@
             setTimeout(() => { btn.textContent = 'Send Message'; e.target.reset(); }, 3000);
         });
 
-        // ========== SMOOTH SCROLL ==========
+        // SMOOTH SCROLL
         document.querySelectorAll('a[href^="#"]').forEach(a => {
             a.addEventListener('click', function(e) {
                 e.preventDefault();
@@ -1734,7 +1532,7 @@
             });
         });
 
-        // ========== ACTIVE NAV ==========
+        // ACTIVE NAV
         const sects = document.querySelectorAll('section[id]');
         addEventListener('scroll', () => {
             let cur = '';
