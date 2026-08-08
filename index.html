@@ -313,9 +313,9 @@
         }
 
         .hero-name {
-            font-size: 5.5rem; font-weight: 900;
+            font-size: clamp(2.3rem, 8vw, 5.5rem); font-weight: 900;
             font-family: 'Space Grotesk', sans-serif;
-            line-height: 1; letter-spacing: -4px;
+            line-height: 1; letter-spacing: -0.025em;
             margin-bottom: 15px;
             animation: fadeUp 0.8s ease 0.7s both;
         }
@@ -346,7 +346,7 @@
         }
 
         .hero-role {
-            font-size: 1.8rem; font-weight: 300;
+            font-size: clamp(1.05rem, 3.6vw, 1.8rem); font-weight: 300;
             color: var(--text-dim); margin-bottom: 25px;
             animation: fadeUp 0.8s ease 0.9s both;
         }
@@ -485,9 +485,9 @@
         }
 
         .section-heading {
-            font-size: 3.2rem; font-weight: 800;
+            font-size: clamp(1.7rem, 5.5vw, 3.2rem); font-weight: 800;
             font-family: 'Space Grotesk', sans-serif;
-            letter-spacing: -2px; margin-bottom: 15px;
+            letter-spacing: -0.018em; margin-bottom: 15px;
         }
 
         .section-heading em {
@@ -520,7 +520,10 @@
         .about-photo-area { position: relative; display: flex; justify-content: center; }
 
         .photo-frame {
-            width: 360px; height: 430px;
+            width: min(360px, 100%);
+            aspect-ratio: 360 / 430;
+            height: auto;
+            max-width: 100%;
             border-radius: 24px; overflow: hidden;
             position: relative;
             background: var(--bg-card);
@@ -975,8 +978,6 @@
         .reveal-r.visible { opacity: 1; transform: translateX(0); }
 
         @media (max-width: 1024px) {
-            .hero-name { font-size: 4rem; letter-spacing: -3px; }
-            .hero-role { font-size: 1.4rem; }
             section { padding: 100px 30px; }
             .nav { padding: 18px 30px; }
             .hero { padding: 0 30px; }
@@ -992,16 +993,13 @@
             body { cursor: auto; }
             .nav-menu { display: none; }
             .hamburger { display: flex; }
-            .hero-name { font-size: 2.8rem; letter-spacing: -2px; }
-            .hero-role { font-size: 1.1rem; }
             .hero-desc { font-size: 0.9rem; }
             .about-layout { grid-template-columns: 1fr; gap: 40px; }
             .about-photo-area { justify-content: center; }
-            .photo-frame { width: 280px; height: 340px; }
+            .photo-frame { width: min(300px, 70%); }
             .orbit-ring { display: none; }
             .info-grid { grid-template-columns: 1fr; }
             .contact-cards { flex-direction: column; align-items: center; }
-            .section-heading { font-size: 2.2rem; }
             .footer-inner { flex-direction: column; text-align: center; }
             .hero-actions { justify-content: center; }
             .project-preview { height: 260px; }
@@ -1024,13 +1022,13 @@
             section { padding: 70px 18px; }
             .nav { padding: 14px 18px; }
             .hero { padding: 0 18px; }
-            .hero-name { font-size: 2.2rem; }
             .hero-role { font-size: 1rem; }
-            .section-heading { font-size: 1.8rem; }
             .footer { padding: 35px 18px; }
             .project-details { padding: 25px; }
             .skill-pill { padding: 11px 20px; font-size: 0.82rem; }
             .contact-card { padding: 24px 28px; min-width: unset; width: 100%; }
+            .hero-actions { flex-direction: column; align-items: stretch; }
+            .btn-neon, .btn-glass { padding: 15px 24px; justify-content: center; width: 100%; }
         }
     </style>
 </head>
@@ -1407,14 +1405,28 @@
         const isMobile = window.matchMedia('(max-width: 768px)').matches ||
                           /iPhone|iPad|iPod/.test(navigator.userAgent);
 
-        // PRELOADER — shortened delay, and it hides itself the moment
-        // the page is actually ready rather than forcing a fixed wait.
-        window.addEventListener('load', () => {
-            setTimeout(() => document.getElementById('preloader').classList.add('hidden'), isMobile ? 300 : 800);
-        });
-        // Safety net: force-hide the preloader after 3s no matter what,
-        // so a slow asset can never leave the page stuck behind it.
-        setTimeout(() => document.getElementById('preloader').classList.add('hidden'), 3000);
+        // PRELOADER — hide only once BOTH the page has loaded AND the
+        // letter-bounce animation has actually finished, so it never
+        // cuts off mid-animation on fast-loading (mobile) devices.
+        const preloaderEl = document.getElementById('preloader');
+        const lastLetter = document.querySelector('.preloader-logo span:last-child');
+        let pageLoaded = false, animFinished = false;
+
+        function tryHidePreloader() {
+            if (pageLoaded && animFinished) preloaderEl.classList.add('hidden');
+        }
+
+        window.addEventListener('load', () => { pageLoaded = true; tryHidePreloader(); });
+
+        if (lastLetter) {
+            lastLetter.addEventListener('animationend', () => { animFinished = true; tryHidePreloader(); }, { once: true });
+        } else {
+            animFinished = true; // fallback if selector ever fails
+        }
+
+        // Safety net: force-hide after 3s no matter what, so a slow
+        // asset or missed event can never leave the page stuck behind it.
+        setTimeout(() => preloaderEl.classList.add('hidden'), 3000);
 
         // CURSOR — desktop only, skipped entirely on mobile/touch
         if (!isMobile) {
