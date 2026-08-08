@@ -4,7 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Bhavish Alakanti| Portfolio</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <style>
         :root {
@@ -82,7 +84,7 @@
             position: fixed; inset: 0; background: var(--bg);
             z-index: 100000;
             display: flex; align-items: center; justify-content: center; flex-direction: column;
-            transition: opacity 1s ease, visibility 1s ease;
+            transition: opacity 0.5s ease, visibility 0.5s ease;
         }
 
         .preloader.hidden { opacity: 0; visibility: hidden; }
@@ -128,7 +130,7 @@
             width: 0%; height: 100%;
             background: var(--gradient-hero);
             border-radius: 10px;
-            animation: loadBar 2s ease forwards;
+            animation: loadBar 0.8s ease forwards;
         }
 
         @keyframes loadBar { to { width: 100%; } }
@@ -142,6 +144,7 @@
             position: absolute; border-radius: 50%;
             filter: blur(120px); opacity: 0.12;
             animation: auroraMove 12s ease-in-out infinite alternate;
+            will-change: transform;
         }
 
         .aurora-blob.b1 { width: 800px; height: 500px; background: var(--cyan); top: -15%; left: -10%; animation-duration: 15s; }
@@ -190,8 +193,9 @@
 
         .nav.scrolled {
             padding: 14px 50px;
-            background: rgba(5, 5, 16, 0.8);
-            backdrop-filter: blur(30px) saturate(180%);
+            background: rgba(5, 5, 16, 0.9);
+            -webkit-backdrop-filter: blur(16px) saturate(160%);
+            backdrop-filter: blur(16px) saturate(160%);
             border-bottom: 1px solid rgba(255,255,255,0.04);
         }
 
@@ -242,7 +246,8 @@
         .mobile-menu {
             position: fixed; inset: 0;
             background: rgba(5, 5, 16, 0.97);
-            backdrop-filter: blur(30px);
+            -webkit-backdrop-filter: blur(16px);
+            backdrop-filter: blur(16px);
             display: flex; align-items: center; justify-content: center;
             opacity: 0; visibility: hidden;
             transition: all 0.5s; z-index: 999;
@@ -406,6 +411,7 @@
             font-size: 0.9rem; font-weight: 600;
             font-family: 'Inter', sans-serif;
             cursor: pointer; text-decoration: none;
+            -webkit-backdrop-filter: blur(10px);
             backdrop-filter: blur(10px);
             transition: all 0.4s;
             display: inline-flex; align-items: center; gap: 10px;
@@ -685,7 +691,8 @@
             border-radius: 24px; overflow: hidden;
             background: var(--bg-card);
             border: 1px solid var(--glass-border);
-            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(14px);
+            backdrop-filter: blur(14px);
             transition: all 0.5s; position: relative;
         }
 
@@ -846,7 +853,8 @@
             background: var(--bg-card);
             border: 1px solid var(--glass-border);
             border-radius: 20px;
-            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(14px);
+            backdrop-filter: blur(14px);
             transition: all 0.4s;
             min-width: 180px;
         }
@@ -948,7 +956,8 @@
             z-index: 100; opacity: 0; transform: translateY(15px);
             transition: all 0.3s;
             display: flex; align-items: center; justify-content: center;
-            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(8px);
+            backdrop-filter: blur(8px);
         }
 
         .back-top.show { opacity: 1; transform: translateY(0); }
@@ -975,6 +984,9 @@
             .about-layout { gap: 50px; }
         }
 
+        /* ===== Mobile/iOS performance & stability fixes =====
+           Heavy blur/canvas effects can exhaust memory on iOS Safari
+           and cause the page to stall mid-render on first load. */
         @media (max-width: 768px) {
             .cursor-ring, .cursor-dot { display: none; }
             body { cursor: auto; }
@@ -993,6 +1005,19 @@
             .footer-inner { flex-direction: column; text-align: center; }
             .hero-actions { justify-content: center; }
             .project-preview { height: 260px; }
+
+            /* Cut aurora blob count/blur/animation — biggest GPU cost */
+            .aurora-blob { animation: none !important; filter: blur(50px); opacity: 0.10; }
+            .aurora-blob.b3, .aurora-blob.b4 { display: none; }
+
+            /* Drop the blurred glow-duplicate of the hero name */
+            .hero-name .name-gradient::after { display: none; }
+
+            /* Simplify the spinning gradient border */
+            .photo-frame::before { animation: none; }
+
+            /* #particles canvas is fully disabled via JS on this breakpoint */
+            #particles { display: none; }
         }
 
         @media (max-width: 480px) {
@@ -1115,7 +1140,7 @@
                 <div class="orbit-ring r1"><div class="orbit-dot"></div></div>
                 <div class="orbit-ring r2"><div class="orbit-dot"></div></div>
                 <div class="photo-frame">
-                    <img src="bhavish-photo.jpg" alt="Bhavish Alakanti">
+                    <img src="bhavish-photo.jpg" alt="Bhavish Alakanti" loading="lazy">
                 </div>
             </div>
 
@@ -1163,7 +1188,7 @@
                     </div>
                 </div>
 
-              <a href="Bhavish_Alakanti_Resume.pdf" target="_blank" class="btn-neon resume-btn">
+               <a href="Bhavish_Alakanti_Resume.pdf" target="_blank" class="btn-neon resume-btn">
                     <i class="fas fa-download"></i> <span>Download Resume</span>
                 </a>
             </div>
@@ -1378,86 +1403,100 @@
     <button class="back-top" id="backTop"><i class="fas fa-chevron-up"></i></button>
 
     <script>
-        // PRELOADER
+        // Detect low-power contexts (mobile/iOS) once, reused below
+        const isMobile = window.matchMedia('(max-width: 768px)').matches ||
+                          /iPhone|iPad|iPod/.test(navigator.userAgent);
+
+        // PRELOADER — shortened delay, and it hides itself the moment
+        // the page is actually ready rather than forcing a fixed wait.
         window.addEventListener('load', () => {
-            setTimeout(() => document.getElementById('preloader').classList.add('hidden'), 2500);
+            setTimeout(() => document.getElementById('preloader').classList.add('hidden'), isMobile ? 300 : 800);
         });
+        // Safety net: force-hide the preloader after 3s no matter what,
+        // so a slow asset can never leave the page stuck behind it.
+        setTimeout(() => document.getElementById('preloader').classList.add('hidden'), 3000);
 
-        // CURSOR
-        const ring = document.getElementById('cursorRing');
-        const dot = document.getElementById('cursorDot');
-        let mx = 0, my = 0, rx = 0, ry = 0;
+        // CURSOR — desktop only, skipped entirely on mobile/touch
+        if (!isMobile) {
+            const ring = document.getElementById('cursorRing');
+            const dot = document.getElementById('cursorDot');
+            let mx = 0, my = 0, rx = 0, ry = 0;
 
-        document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; });
+            document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; });
 
-        function animateCursor() {
-            rx += (mx - rx) * 0.12;
-            ry += (my - ry) * 0.12;
-            ring.style.left = rx + 'px';
-            ring.style.top = ry + 'px';
-            dot.style.left = mx + 'px';
-            dot.style.top = my + 'px';
-            requestAnimationFrame(animateCursor);
-        }
-        animateCursor();
-
-        document.querySelectorAll('a, button, .skill-pill, .project-card-main, .info-item, .contact-icon, .contact-card').forEach(el => {
-            el.addEventListener('mouseenter', () => ring.classList.add('hover'));
-            el.addEventListener('mouseleave', () => ring.classList.remove('hover'));
-        });
-
-        // PARTICLES
-        const cvs = document.getElementById('particles');
-        const c = cvs.getContext('2d');
-        let pts = [];
-
-        function resize() { cvs.width = innerWidth; cvs.height = innerHeight; }
-        resize(); addEventListener('resize', resize);
-
-        class P {
-            constructor() {
-                this.x = Math.random() * cvs.width;
-                this.y = Math.random() * cvs.height;
-                this.r = Math.random() * 1.5 + 0.3;
-                this.dx = (Math.random() - 0.5) * 0.3;
-                this.dy = (Math.random() - 0.5) * 0.3;
-                this.o = Math.random() * 0.4 + 0.05;
+            function animateCursor() {
+                rx += (mx - rx) * 0.12;
+                ry += (my - ry) * 0.12;
+                ring.style.left = rx + 'px';
+                ring.style.top = ry + 'px';
+                dot.style.left = mx + 'px';
+                dot.style.top = my + 'px';
+                requestAnimationFrame(animateCursor);
             }
-            move() {
-                this.x += this.dx; this.y += this.dy;
-                if (this.x > cvs.width) this.x = 0;
-                if (this.x < 0) this.x = cvs.width;
-                if (this.y > cvs.height) this.y = 0;
-                if (this.y < 0) this.y = cvs.height;
-            }
-            show() {
-                c.fillStyle = `rgba(0, 240, 255, ${this.o})`;
-                c.beginPath(); c.arc(this.x, this.y, this.r, 0, Math.PI * 2); c.fill();
-            }
+            animateCursor();
+
+            document.querySelectorAll('a, button, .skill-pill, .project-card-main, .info-item, .contact-icon, .contact-card').forEach(el => {
+                el.addEventListener('mouseenter', () => ring.classList.add('hover'));
+                el.addEventListener('mouseleave', () => ring.classList.remove('hover'));
+            });
         }
 
-        function initPts() { pts = []; for (let i = 0; i < Math.min(60, innerWidth * innerHeight / 20000); i++) pts.push(new P()); }
-        initPts();
+        // PARTICLES — desktop only. This was the single heaviest
+        // continuous task on the page (per-frame O(n^2) line checks)
+        // and the most likely cause of iOS Safari's renderer stalling.
+        if (!isMobile) {
+            const cvs = document.getElementById('particles');
+            const c = cvs.getContext('2d');
+            let pts = [];
 
-        function lines() {
-            for (let i = 0; i < pts.length; i++)
-                for (let j = i + 1; j < pts.length; j++) {
-                    const d = Math.hypot(pts[i].x - pts[j].x, pts[i].y - pts[j].y);
-                    if (d < 140) {
-                        c.strokeStyle = `rgba(0, 240, 255, ${0.05 * (1 - d / 140)})`;
-                        c.lineWidth = 0.4;
-                        c.beginPath(); c.moveTo(pts[i].x, pts[i].y); c.lineTo(pts[j].x, pts[j].y); c.stroke();
-                    }
+            function resize() { cvs.width = innerWidth; cvs.height = innerHeight; }
+            resize(); addEventListener('resize', resize);
+
+            class P {
+                constructor() {
+                    this.x = Math.random() * cvs.width;
+                    this.y = Math.random() * cvs.height;
+                    this.r = Math.random() * 1.5 + 0.3;
+                    this.dx = (Math.random() - 0.5) * 0.3;
+                    this.dy = (Math.random() - 0.5) * 0.3;
+                    this.o = Math.random() * 0.4 + 0.05;
                 }
-        }
+                move() {
+                    this.x += this.dx; this.y += this.dy;
+                    if (this.x > cvs.width) this.x = 0;
+                    if (this.x < 0) this.x = cvs.width;
+                    if (this.y > cvs.height) this.y = 0;
+                    if (this.y < 0) this.y = cvs.height;
+                }
+                show() {
+                    c.fillStyle = `rgba(0, 240, 255, ${this.o})`;
+                    c.beginPath(); c.arc(this.x, this.y, this.r, 0, Math.PI * 2); c.fill();
+                }
+            }
 
-        function loop() {
-            c.clearRect(0, 0, cvs.width, cvs.height);
-            pts.forEach(p => { p.move(); p.show(); });
-            lines();
-            requestAnimationFrame(loop);
+            function initPts() { pts = []; for (let i = 0; i < Math.min(45, innerWidth * innerHeight / 25000); i++) pts.push(new P()); }
+            initPts();
+
+            function lines() {
+                for (let i = 0; i < pts.length; i++)
+                    for (let j = i + 1; j < pts.length; j++) {
+                        const d = Math.hypot(pts[i].x - pts[j].x, pts[i].y - pts[j].y);
+                        if (d < 140) {
+                            c.strokeStyle = `rgba(0, 240, 255, ${0.05 * (1 - d / 140)})`;
+                            c.lineWidth = 0.4;
+                            c.beginPath(); c.moveTo(pts[i].x, pts[i].y); c.lineTo(pts[j].x, pts[j].y); c.stroke();
+                        }
+                    }
+            }
+
+            function loop() {
+                c.clearRect(0, 0, cvs.width, cvs.height);
+                pts.forEach(p => { p.move(); p.show(); });
+                lines();
+                requestAnimationFrame(loop);
+            }
+            loop();
         }
-        loop();
 
         // TYPING
         const words = ['cool websites', 'smooth UI/UX', 'creative designs', 'modern apps', 'digital magic'];
@@ -1472,7 +1511,7 @@
             if (del && ci === 0) { del = false; wi = (wi + 1) % words.length; sp = 400; }
             setTimeout(type, sp);
         }
-        setTimeout(type, 2800);
+        setTimeout(type, 1200);
 
         // NAV
         const nav = document.getElementById('nav');
@@ -1499,7 +1538,7 @@
             });
         }
         addEventListener('scroll', reveal);
-        addEventListener('load', () => setTimeout(reveal, 2600));
+        addEventListener('load', () => setTimeout(reveal, 900));
 
         // SMOOTH SCROLL
         document.querySelectorAll('a[href^="#"]').forEach(a => {
