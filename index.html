@@ -8,6 +8,9 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;600;700;800;900&family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
 <style>
 :root{
   --ink:#070203;
@@ -35,6 +38,35 @@ button{font-family:inherit;}
 
 .reticle{width:26px;height:26px;position:fixed;pointer-events:none;z-index:99999;transform:translate(-50%,-50%);border-radius:50%;border:2px solid var(--c2);transition:width .2s,height .2s,border-color .2s;}
 .reticle.hover{width:50px;height:50px;border-color:var(--c1);}
+.cursor-dot{width:6px;height:6px;border-radius:50%;background:var(--c1);position:fixed;pointer-events:none;z-index:99998;transform:translate(-50%,-50%);}
+.trail-dot{width:5px;height:5px;border-radius:50%;background:var(--c3);position:fixed;pointer-events:none;z-index:99997;transform:translate(-50%,-50%);opacity:.7;}
+
+/* ============ WEBGL BG ============ */
+#webgl-bg{position:fixed;inset:0;z-index:0;pointer-events:none;opacity:.85;mix-blend-mode:multiply;}
+
+/* ============ GLITCH BURST OVERLAY ============ */
+.glitch-overlay{position:fixed;inset:0;z-index:99990;pointer-events:none;opacity:0;mix-blend-mode:difference;}
+.glitch-overlay.burst{opacity:1;animation:glitchBurst .28s steps(3,end);}
+@keyframes glitchBurst{
+  0%{background:var(--c1);transform:translate(0,0);clip-path:inset(10% 0 65% 0);}
+  20%{background:var(--c2);transform:translate(-14px,4px);clip-path:inset(40% 0 20% 0);}
+  40%{background:var(--c3);transform:translate(10px,-6px);clip-path:inset(70% 0 5% 0);}
+  60%{background:var(--c1);transform:translate(-6px,8px);clip-path:inset(5% 0 80% 0);}
+  80%{background:var(--c2);transform:translate(8px,-3px);clip-path:inset(55% 0 15% 0);}
+  100%{opacity:0;}
+}
+.scanlines{position:fixed;inset:0;z-index:99991;pointer-events:none;opacity:.05;
+  background:repeating-linear-gradient(0deg,rgba(0,0,0,.9) 0px,rgba(0,0,0,.9) 1px,transparent 1px,transparent 3px);}
+
+/* ============ KINETIC STRIP ============ */
+.kinetic-strip{overflow:hidden;background:var(--ink);border-top:var(--border);border-bottom:var(--border);padding:22px 0;margin:0 -40px;position:relative;z-index:2;}
+.kinetic-skew{will-change:transform;}
+.kinetic-track{display:flex;gap:50px;width:max-content;white-space:nowrap;will-change:transform;animation:kineticSlide 24s linear infinite;}
+@keyframes kineticSlide{to{transform:translateX(-33.3333%);}}
+.kinetic-track span{font-family:'Unbounded',sans-serif;font-weight:900;font-size:clamp(1.6rem,4.5vw,3rem);text-transform:uppercase;color:transparent;-webkit-text-stroke:1.5px var(--bone);letter-spacing:-.01em;display:inline-flex;align-items:center;gap:20px;}
+.kinetic-track span i{-webkit-text-stroke:0;color:var(--c2);font-size:.6em;}
+.kinetic-track span:nth-child(3n){-webkit-text-stroke-color:var(--c1);}
+.kinetic-track span:nth-child(3n+1){color:var(--c2);-webkit-text-stroke:0;}
 
 /* ============ BOOT ============ */
 .boot-screen{position:fixed;inset:0;z-index:100000;background:var(--ink);color:var(--bone);display:flex;align-items:center;justify-content:center;padding:20px;transition:transform .6s cubic-bezier(.76,0,.24,1);}
@@ -110,8 +142,8 @@ a:focus-visible, button:focus-visible{outline:3px solid var(--c2);outline-offset
 }
 .glitch-name .g-line::before{color:var(--c1);}
 .glitch-name .g-line::after{color:var(--c3);}
-.glitch-name:hover .g-line::before{opacity:.85;animation:glitchTop .4s steps(2,end) infinite;}
-.glitch-name:hover .g-line::after{opacity:.85;animation:glitchBot .4s steps(2,end) infinite;}
+.glitch-name:hover .g-line::before,.glitch-name.auto .g-line::before{opacity:.85;animation:glitchTop .4s steps(2,end) infinite;}
+.glitch-name:hover .g-line::after,.glitch-name.auto .g-line::after{opacity:.85;animation:glitchBot .4s steps(2,end) infinite;}
 @keyframes glitchTop{0%{transform:translate(0,0);clip-path:inset(0 0 60% 0);}50%{transform:translate(-4px,-2px);clip-path:inset(0 0 60% 0);}100%{transform:translate(3px,1px);clip-path:inset(0 0 60% 0);}}
 @keyframes glitchBot{0%{transform:translate(0,0);clip-path:inset(60% 0 0 0);}50%{transform:translate(4px,2px);clip-path:inset(60% 0 0 0);}100%{transform:translate(-3px,-1px);clip-path:inset(60% 0 0 0);}}
 
@@ -235,6 +267,7 @@ a:focus-visible, button:focus-visible{outline:3px solid var(--c2);outline-offset
 @media (max-width:600px){
   section{padding:100px 18px 70px;}
   .tape{margin:0 -18px 44px;}
+  .kinetic-strip{margin:0 -18px;}
   .hero-actions{flex-direction:column;align-items:stretch;}
   .btn-brut{justify-content:center;}
   .punch-grid{grid-template-columns:1fr;}
@@ -248,8 +281,12 @@ a:focus-visible, button:focus-visible{outline:3px solid var(--c2);outline-offset
 </head>
 <body>
 
+<canvas id="webgl-bg"></canvas>
 <div class="grain"></div>
+<div class="scanlines"></div>
+<div class="glitch-overlay" id="glitchOverlay"></div>
 <div class="reticle" id="reticle"></div>
+<div class="cursor-dot" id="cursorDot"></div>
 
 <div class="boot-screen" id="bootScreen">
   <div class="boot-box">
@@ -390,6 +427,18 @@ a:focus-visible, button:focus-visible{outline:3px solid var(--c2);outline-offset
     </div>
   </div>
 </section>
+
+<div class="kinetic-strip">
+  <div class="kinetic-skew" id="kineticSkew">
+    <div class="kinetic-track" id="kineticTrack">
+      <span>OPEN TO WORK <i class="fas fa-star"></i></span>
+      <span>FULL-STACK DEV <i class="fas fa-bolt"></i></span>
+      <span>REACT <i class="fas fa-star"></i></span>
+      <span>NODE.JS <i class="fas fa-bolt"></i></span>
+      <span>HYDERABAD <i class="fas fa-star"></i></span>
+    </div>
+  </div>
+</div>
 
 <!-- PROJECTS -->
 <section class="projects" id="projects">
@@ -561,6 +610,157 @@ if (!isMobile && !reduceMotion) {
 const tapeWords = ['OPEN TO WORK','FULL-STACK DEVELOPER','HYDERABAD, INDIA','BUILDING THINGS THAT WORK'];
 const track = document.getElementById('tapeTrack');
 for (let r = 0; r < 2; r++) { tapeWords.forEach(w => { const s = document.createElement('span'); s.textContent = w; track.appendChild(s); }); }
+
+/* ---------- KINETIC STRIP (duplicate + scroll-velocity skew) ---------- */
+const kTrack = document.getElementById('kineticTrack');
+const kSkew = document.getElementById('kineticSkew');
+kTrack.innerHTML += kTrack.innerHTML + kTrack.innerHTML;
+if (reduceMotion) { kTrack.style.animation = 'none'; }
+if (!reduceMotion && typeof gsap !== 'undefined') {
+  gsap.registerPlugin(ScrollTrigger);
+  let lastY = scrollY, skewSet = gsap.quickTo(kSkew, 'skewX', {duration:0.4, ease:'power3'});
+  addEventListener('scroll', () => {
+    const dy = scrollY - lastY; lastY = scrollY;
+    skewSet(gsap.utils.clamp(-8, 8, dy * -0.6));
+  });
+}
+
+/* ---------- CURSOR TRAIL ---------- */
+if (!isMobile) {
+  const cDot = document.getElementById('cursorDot');
+  const trailCount = 6, trailDots = [];
+  for (let i = 0; i < trailCount; i++) {
+    const d = document.createElement('div'); d.className = 'trail-dot';
+    d.style.opacity = 1 - (i / trailCount);
+    document.body.appendChild(d); trailDots.push({ el: d, x: 0, y: 0 });
+  }
+  let mx = innerWidth/2, my = innerHeight/2;
+  document.addEventListener('mousemove', e => {
+    mx = e.clientX; my = e.clientY;
+    cDot.style.left = mx + 'px'; cDot.style.top = my + 'px';
+  });
+  (function animTrail(){
+    let px = mx, py = my;
+    trailDots.forEach((t, i) => {
+      t.x += (px - t.x) * 0.35; t.y += (py - t.y) * 0.35;
+      t.el.style.left = t.x + 'px'; t.el.style.top = t.y + 'px';
+      px = t.x; py = t.y;
+    });
+    requestAnimationFrame(animTrail);
+  })();
+}
+
+/* ---------- RANDOM GLITCH BURST ---------- */
+if (!reduceMotion) {
+  const overlay = document.getElementById('glitchOverlay');
+  function scheduleGlitch(){
+    setTimeout(() => {
+      overlay.classList.add('burst');
+      setTimeout(() => overlay.classList.remove('burst'), 300);
+      scheduleGlitch();
+    }, 6000 + Math.random() * 6000);
+  }
+  scheduleGlitch();
+
+  const gname = document.querySelector('.glitch-name');
+  function scheduleNameGlitch(){
+    setTimeout(() => {
+      gname.classList.add('auto');
+      setTimeout(() => gname.classList.remove('auto'), 500);
+      scheduleNameGlitch();
+    }, 3500 + Math.random() * 3000);
+  }
+  scheduleNameGlitch();
+}
+
+/* ---------- THREE.JS BACKGROUND ---------- */
+if (typeof THREE !== 'undefined') {
+  const canvas = document.getElementById('webgl-bg');
+  const renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: true });
+  renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
+  renderer.setSize(innerWidth, innerHeight);
+
+  const scene = new THREE.Scene();
+  const camera = new THREE.PerspectiveCamera(55, innerWidth/innerHeight, 0.1, 100);
+  camera.position.z = 9;
+
+  const group = new THREE.Group();
+  scene.add(group);
+
+  const geo = new THREE.IcosahedronGeometry(3, 1);
+  const wireMat = new THREE.MeshBasicMaterial({ color: 0xFF0074, wireframe: true, transparent: true, opacity: 0.55 });
+  const shape = new THREE.Mesh(geo, wireMat);
+  group.add(shape);
+
+  const geo2 = new THREE.TorusKnotGeometry(1.6, 0.32, 120, 16);
+  const wireMat2 = new THREE.MeshBasicMaterial({ color: 0x8B2FFF, wireframe: true, transparent: true, opacity: 0.4 });
+  const knot = new THREE.Mesh(geo2, wireMat2);
+  knot.position.set(2.2, -1, -3);
+  group.add(knot);
+
+  const particlesGeo = new THREE.BufferGeometry();
+  const pCount = isMobile ? 180 : 420;
+  const positions = new Float32Array(pCount * 3);
+  for (let i = 0; i < pCount * 3; i++) positions[i] = (Math.random() - 0.5) * 24;
+  particlesGeo.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+  const particlesMat = new THREE.PointsMaterial({ color: 0xFF3B1F, size: 0.045, transparent: true, opacity: 0.7 });
+  const particles = new THREE.Points(particlesGeo, particlesMat);
+  scene.add(particles);
+
+  let tmx = 0, tmy = 0;
+  addEventListener('mousemove', e => {
+    tmx = (e.clientX / innerWidth - 0.5) * 2;
+    tmy = (e.clientY / innerHeight - 0.5) * 2;
+  });
+
+  addEventListener('resize', () => {
+    camera.aspect = innerWidth / innerHeight;
+    camera.updateProjectionMatrix();
+    renderer.setSize(innerWidth, innerHeight);
+  });
+
+  if (!reduceMotion) {
+    (function raf(t){
+      requestAnimationFrame(raf);
+      group.rotation.y += 0.0016;
+      group.rotation.x += 0.0007;
+      knot.rotation.x -= 0.002;
+      knot.rotation.y += 0.0013;
+      particles.rotation.y += 0.0004;
+      camera.position.x += (tmx * 1.4 - camera.position.x) * 0.03;
+      camera.position.y += (-tmy * 1.4 - camera.position.y) * 0.03;
+      camera.lookAt(scene.position);
+      renderer.render(scene, camera);
+    })();
+
+    if (typeof gsap !== 'undefined') {
+      gsap.to(group.rotation, {
+        z: Math.PI * 2, scrollTrigger: { trigger: document.body, start: 'top top', end: 'bottom bottom', scrub: 1.2 }
+      });
+    }
+  } else {
+    renderer.render(scene, camera);
+  }
+}
+
+/* ---------- GSAP SCROLL REVEALS (project 3D tilt-in, watermark parallax) ---------- */
+if (!reduceMotion && typeof gsap !== 'undefined') {
+  document.querySelectorAll('.proj-window').forEach((card, i) => {
+    gsap.fromTo(card, { rotateX: 12, y: 70, opacity: 0 }, {
+      rotateX: 0, y: 0, opacity: 1, duration: 1, ease: 'power3.out',
+      scrollTrigger: { trigger: card, start: 'top 85%' }
+    });
+  });
+  document.querySelectorAll('.keycap').forEach((k, i) => {
+    gsap.fromTo(k, { y: 24, opacity: 0 }, {
+      y: 0, opacity: 1, duration: 0.5, delay: (i % 6) * 0.05, ease: 'back.out(2)',
+      scrollTrigger: { trigger: k, start: 'top 90%' }
+    });
+  });
+  document.querySelectorAll('.watermark').forEach(w => {
+    gsap.to(w, { yPercent: -18, ease: 'none', scrollTrigger: { trigger: w.parentElement, scrub: 1 } });
+  });
+}
 
 /* ---------- TYPING ROLE ---------- */
 const words = ['cool websites','smooth UI/UX','creative designs','modern apps','digital magic'];
