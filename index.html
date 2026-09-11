@@ -143,19 +143,6 @@ a:focus-visible, button:focus-visible{outline:3px solid var(--riot);outline-offs
 
 /* ============ HERO ============ */
 .hero{padding-top:130px;min-height:100vh;display:flex;flex-direction:column;justify-content:center;}
-.tape{
-  background:repeating-linear-gradient(-45deg,var(--ink),var(--ink) 14px,var(--volt) 14px,var(--volt) 28px);
-  transform:rotate(-1.4deg);
-  border-top:var(--border);border-bottom:var(--border);
-  overflow:hidden;margin:0 -40px 60px;
-}
-.tape-track{display:flex;gap:60px;width:max-content;animation:tape 18s linear infinite;padding:9px 0;}
-@keyframes tape{to{transform:translateX(-50%);}}
-.tape span{
-  font-family:'JetBrains Mono',monospace;font-weight:700;font-size:.8rem;
-  color:var(--ink);background:var(--paper);padding:4px 14px;white-space:nowrap;
-  border:2px solid var(--ink);
-}
 .hero-inner{max-width:920px;}
 .glitch-name{
   font-family:'Unbounded',sans-serif;font-weight:900;text-transform:uppercase;
@@ -207,6 +194,23 @@ a:focus-visible, button:focus-visible{outline:3px solid var(--riot);outline-offs
 .punch-value{font-weight:600;font-size:.92rem;}
 .about .btn-brut{background:var(--volt);color:var(--ink);box-shadow:7px 7px 0 var(--riot);}
 .about .btn-brut:hover{box-shadow:10px 10px 0 var(--riot);}
+
+/* ============ EXPERIENCE ============ */
+.experience{background:var(--ink);color:var(--paper);border-top:2px solid var(--paper);}
+.experience .eyebrow::before{background:var(--signal);}
+.experience .heading .hl{background:var(--volt);color:var(--ink);}
+.exp-list{max-width:980px;margin:0 auto;}
+.exp-row{display:grid;grid-template-columns:200px 1fr;gap:36px;padding:34px 0;border-bottom:2px solid var(--paper);}
+.exp-row:first-child{border-top:2px solid var(--paper);}
+.exp-date{font-family:'JetBrains Mono',monospace;font-size:.85rem;color:var(--signal);font-weight:600;padding-top:2px;}
+.exp-role{font-family:'Unbounded',sans-serif;font-weight:700;font-size:1.25rem;margin-bottom:4px;}
+.exp-org{font-family:'JetBrains Mono',monospace;font-size:.82rem;color:var(--gray);margin-bottom:14px;}
+.exp-points{list-style:none;display:flex;flex-direction:column;gap:8px;}
+.exp-points li{font-size:.92rem;color:#c9c8c2;padding-left:20px;position:relative;}
+.exp-points li::before{content:'';position:absolute;left:0;top:9px;width:8px;height:3px;background:var(--volt);}
+@media (max-width:700px){
+  .exp-row{grid-template-columns:1fr;gap:10px;}
+}
 
 /* ============ SKILLS ============ */
 .skills-wrap{max-width:1080px;margin:0 auto;}
@@ -326,7 +330,6 @@ a:focus-visible, button:focus-visible{outline:3px solid var(--riot);outline-offs
 }
 @media (max-width:600px){
   section{padding:100px 18px 70px;}
-  .tape{margin:0 -18px 44px;}
   .hero-actions{flex-direction:column;align-items:stretch;}
   .btn-brut{justify-content:center;}
   .punch-grid{grid-template-columns:1fr;}
@@ -355,6 +358,7 @@ a:focus-visible, button:focus-visible{outline:3px solid var(--riot);outline-offs
   <ul class="nav-links">
     <li><a href="#home">Home</a></li>
     <li><a href="#about">About</a></li>
+    <li><a href="#experience">Experience</a></li>
     <li><a href="#skills">Skills</a></li>
     <li><a href="#projects">Work</a></li>
     <li><a href="#contact">Contact</a></li>
@@ -366,6 +370,7 @@ a:focus-visible, button:focus-visible{outline:3px solid var(--riot);outline-offs
   <ul>
     <li><a href="#home" onclick="closeMenu()">Home</a></li>
     <li><a href="#about" onclick="closeMenu()">About</a></li>
+    <li><a href="#experience" onclick="closeMenu()">Experience</a></li>
     <li><a href="#skills" onclick="closeMenu()">Skills</a></li>
     <li><a href="#projects" onclick="closeMenu()">Work</a></li>
     <li><a href="#contact" onclick="closeMenu()">Contact</a></li>
@@ -374,7 +379,6 @@ a:focus-visible, button:focus-visible{outline:3px solid var(--riot);outline-offs
 
 <!-- HERO -->
 <section class="hero" id="home">
-  <div class="tape"><div class="tape-track" id="tapeTrack"></div></div>
   <div class="hero-inner">
     <p class="eyebrow">system // portfolio.exe</p>
     <h1 class="glitch-name">BHAVISH<br><span class="row2">ALAKANTI</span></h1>
@@ -401,7 +405,6 @@ a:focus-visible, button:focus-visible{outline:3px solid var(--riot);outline-offs
   <div class="about-layout">
     <div class="reveal">
       <div class="photo-box">
-        <div class="sticker">dev</div>
         <img src="bhavish-photo.jpg" alt="Bhavish Alakanti" loading="lazy">
       </div>
     </div>
@@ -416,6 +419,42 @@ a:focus-visible, button:focus-visible{outline:3px solid var(--riot);outline-offs
         <div class="punch"><div class="punch-label">Education</div><div class="punch-value">B.Tech CSE</div></div>
       </div>
       <a href="Bhavish_Alakanti_Resume.pdf" target="_blank" class="btn-brut btn-volt"><i class="fas fa-download"></i> Download Resume</a>
+    </div>
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section class="experience" id="experience">
+  <div class="section-head reveal">
+    <p class="eyebrow">// experience</p>
+    <h2 class="heading">Where I've <span class="hl">Worked</span></h2>
+  </div>
+  <div class="exp-list">
+    <div class="exp-row reveal">
+      <div class="exp-date">May 2026 — Aug 2026</div>
+      <div>
+        <div class="exp-role">Software Automation Intern</div>
+        <div class="exp-org">Advatech Resource Pvt Ltd</div>
+        <ul class="exp-points">
+          <li>Wrote automation scripts and test cases for core product workflows</li>
+          <li>Ran functional, regression, and integration testing cycles</li>
+          <li>Tested REST APIs using Postman as part of QA sign-off</li>
+          <li>Worked within an Agile team, contributing across sprints</li>
+        </ul>
+      </div>
+    </div>
+    <div class="exp-row reveal">
+      <div class="exp-date">Dec 2025 — Feb 2026</div>
+      <div>
+        <div class="exp-role">Web Developer</div>
+        <div class="exp-org">Dreamcore Solutions</div>
+        <ul class="exp-points">
+          <li>Built responsive web interfaces for client-facing products</li>
+          <li>Developed REST APIs and backend logic with Node.js</li>
+          <li>Created reusable UI components to speed up future builds</li>
+          <li>Collaborated with the team using Git-based workflows</li>
+        </ul>
+      </div>
     </div>
   </div>
 </section>
@@ -595,17 +634,6 @@ if (!isMobile) {
   document.addEventListener('mousemove', e => {
     ret.style.left = e.clientX + 'px';
     ret.style.top = e.clientY + 'px';
-  });
-}
-
-/* ---------- MARQUEE TAPE ---------- */
-const tapeWords = ['OPEN TO WORK','FULL-STACK DEVELOPER','HYDERABAD, INDIA','BUILDING THINGS THAT WORK'];
-const track = document.getElementById('tapeTrack');
-for (let r = 0; r < 2; r++) {
-  tapeWords.forEach(w => {
-    const s = document.createElement('span');
-    s.textContent = w;
-    track.appendChild(s);
   });
 }
 
